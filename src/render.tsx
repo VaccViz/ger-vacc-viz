@@ -27,7 +27,7 @@ export function render(data: AppProps) {
                     ))}
                 </tbody>
             </table>
-            <p class="remark"><i>Remark:</i> The calculation of listed dates are based on the assumption that the 7-day averages remain steady. It does not take other factors into account, such as age restrictions of vaccines.</p>
+            <p class="remark"><i>Remark:</i> The calculation of the listed dates are based on the assumption that the 7-day averages remain steady. It does not take other factors into account, such as age restrictions of vaccines.</p>
 
             {props.chartConfigurations.map((c) => (
                 <ChartComponent {...c}></ChartComponent>
