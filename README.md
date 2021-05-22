@@ -42,7 +42,7 @@ After cloning this repository, you need to run the following command to install 
 
 ### Run Local Development Server
 
-You can run a local test server listening on http://localhost:8000 that serve the site with:
+You can run a local test server listening on http://localhost:8080 that serve the site with:
 
     npm run start
 
