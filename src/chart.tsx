@@ -60,6 +60,7 @@ export class ChartComponent extends Component<ChartProps> {
             data: data,
             options: {
                 responsive: true,
+                aspectRatio: this.getAspectRatio(),
                 scales: {
                     x: {
                         display: true,
@@ -82,6 +83,23 @@ export class ChartComponent extends Component<ChartProps> {
         return config;
     }
 
+    getAspectRatio() {
+        if(window.innerWidth < 800 && window.innerWidth < window.innerHeight) {
+            return 1;
+        }
+        return 2;
+    }
+
+    /**
+     * Responsive update of the aspect ratio, so that the chart is readable on small devices in landscape and portrait mode.
+     */
+    updateAspectRatio() {
+        if(this.chart) {
+            this.chart.options.aspectRatio = this.getAspectRatio();
+            this.chart.update();
+        }
+    }
+
     drawChart() {
         var dosesCtx = this.getCanvas().getContext('2d');
         if(!dosesCtx) {
@@ -89,6 +107,7 @@ export class ChartComponent extends Component<ChartProps> {
         }
         const config = this.buildChartConfig(this.props)
         this.chart = new Chart(dosesCtx, config);
+        window.addEventListener('resize', () => this.updateAspectRatio());
     }
 
     getCanvas() {
