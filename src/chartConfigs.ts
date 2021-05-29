@@ -1,6 +1,7 @@
 import { ChartDataset } from 'chart.js';
 import moment from 'moment';
 import { ChartProps } from './chart';
+import { config } from './const';
 import { Metadata, TimeSeries, WeekSummary } from './model';
 
 enum ChartColors {
@@ -94,6 +95,25 @@ export function getWeeklyChartConfig(ws: WeekSummary[]) {
         labels: ws.map(w => moment(w.date).format("W")),
         yTitle: "Number of Doses",
         xTitle: "ISO Week",
+        datasets
+    };
+}
+
+export function getEstimationChartConfig(ts: TimeSeries): ChartProps {
+    const population = config.population;
+    ts = ts.filter(p => p.date.isAfter(moment("2021-05-14"))) // was 05-01
+
+    // TODO: Import from calculation?
+    const datasets: ChartDataset[] = [
+        cLineChart("70% first dose administered", ts.map(d => (population  * 0.7  - d.totalPeopleFirstDose) / d.averageFirstDoses), ChartColors.Purple),
+        cLineChart("70% fully vaccinated", ts.map(d => (population * 0.7 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses), ChartColors.Blue),
+        cLineChart("Fully vaccinated", ts.map(d => (population * 2 - d.totalVaccineDoses) / d.averageDoses), ChartColors.Green),
+    ];
+
+    return {
+        title: "Remaining Vaccination Time Estimations",
+        labels: tsLabels(ts),
+        yTitle: "Days",
         datasets
     };
 }
