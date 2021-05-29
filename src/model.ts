@@ -46,6 +46,7 @@ export interface VaccinationTimeSeriesDataPoint extends BaseTimeSeriesDataPoint 
       * Number of people who received their second vaccine dose on that day.
       */
      peopleSecondDose: number;
+
 }
 
 export interface DeliveryTimeSeriesDataPoint extends BaseTimeSeriesDataPoint {
@@ -53,6 +54,26 @@ export interface DeliveryTimeSeriesDataPoint extends BaseTimeSeriesDataPoint {
      * Number of doses delivered on that day.
      */
     dosesDelivered: number;
+
+    /**
+     *  Number of doses from Moderna delivered on that day.
+     */
+    modernaDosesDelivered: number;
+
+    /**
+     *  Number of doses from AstraZeneca delivered on that day.
+     */
+    astraDosesDelivered: number;
+
+    /**
+     *  Number of doses from Johnson & Johnson delivered on that day.
+     */
+    johnsonDosesDelivered: number;
+
+    /**
+     *  Number of doses from BioNTech/Pfizer delivered on that day.
+     */
+    comirnatyDosesDelivered: number;
 }
 
 export type CombinedTimeSeriesDataPoint = DeliveryTimeSeriesDataPoint & VaccinationTimeSeriesDataPoint;
@@ -109,4 +130,24 @@ export interface WeekSummary extends BaseTimeSeriesDataPoint {
      * Total number of doses delivered til that week.
      */
     dosesDelivered: number;
+
+    /**
+     *  Number of doses from Moderna delivered on that day.
+     */
+     modernaDosesDelivered: number;
+
+     /**
+      *  Number of doses from AstraZeneca delivered on that day.
+      */
+     astraDosesDelivered: number;
+
+     /**
+      *  Number of doses from Johnson & Johnson delivered on that day.
+      */
+     johnsonDosesDelivered: number;
+
+     /**
+      *  Number of doses from BioNTech/Pfizer delivered on that day.
+      */
+     comirnatyDosesDelired: number;
 }

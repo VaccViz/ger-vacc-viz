@@ -45,6 +45,10 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
             totalVaccineDoses: 0,
             totalPeopleFirstDose: 0,
             totalPeopleFullyVaccinated: 0,
+            modernaDosesDelivered: 0,
+            astraDosesDelivered: 0,
+            comirnatyDosesDelivered: 0,
+            johnsonDosesDelivered: 0,
 
             dosesDelivered: 0
         };
@@ -60,6 +64,10 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
         }
         if(currentDelivery?.date.valueOf() === date.valueOf()) {
             data.dosesDelivered = currentDelivery.dosesDelivered;
+            data.astraDosesDelivered = currentDelivery.astraDosesDelivered;
+            data.comirnatyDosesDelivered = currentDelivery.comirnatyDosesDelivered;
+            data.johnsonDosesDelivered = currentDelivery.johnsonDosesDelivered;
+            data.modernaDosesDelivered = currentDelivery.modernaDosesDelivered;
             currentDelivery = null;
         }
         result.push(data);
@@ -105,6 +113,10 @@ export function calculateWeeklyData(dailyTimeSeries: TimeSeries): WeekSummary[] 
                 peopleSecondDose: 0,
                 peopleVaccinated: 0,
                 dosesDelivered: 0,
+                astraDosesDelivered: 0,
+                comirnatyDosesDelired: 0,
+                johnsonDosesDelivered: 0,
+                modernaDosesDelivered: 0
             };
             result.push(currentWeek);
         }
@@ -112,6 +124,10 @@ export function calculateWeeklyData(dailyTimeSeries: TimeSeries): WeekSummary[] 
         currentWeek.peopleSecondDose += day.peopleSecondDose;
         currentWeek.dosesDelivered += day.dosesDelivered;
         currentWeek.peopleVaccinated += day.peopleVaccinated;
+        currentWeek.astraDosesDelivered += day.astraDosesDelivered;
+        currentWeek.comirnatyDosesDelired += day.comirnatyDosesDelivered;
+        currentWeek.johnsonDosesDelivered += day.johnsonDosesDelivered;
+        currentWeek.modernaDosesDelivered += day.modernaDosesDelivered;
     }
 
     // show only full weeks:

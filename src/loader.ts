@@ -53,16 +53,36 @@ export async function loadDeliveryTimeSeries(): Promise<DeliveryTimeSeriesDataPo
         // Skip header:
         if(record[0] == "date") continue;
         const date = moment(record[0]);
+        const vaccineName = record[1];
+        const dosesDelivered = parseInt(record[3]);
         let dp = timeSeries.find(p => p.date.isSame(date));
 
         if(!dp) {
             dp = {
                 date: date,
-                dosesDelivered: 0
+                dosesDelivered: 0,
+                astraDosesDelivered: 0,
+                comirnatyDosesDelivered: 0,
+                johnsonDosesDelivered: 0,
+                modernaDosesDelivered: 0
             };
             timeSeries.push(dp);
         }
-        dp.dosesDelivered += parseInt(record[3]);
+        dp.dosesDelivered += dosesDelivered;
+        switch(vaccineName) {
+            case "comirnaty":
+                dp.comirnatyDosesDelivered += dosesDelivered;
+                break;
+            case "astra":
+                dp.astraDosesDelivered += dosesDelivered;
+                break;
+            case "johnson":
+                dp.johnsonDosesDelivered += dosesDelivered;
+                break;
+            case "moderna":
+                dp.modernaDosesDelivered += dosesDelivered;
+                break;
+        }
     }
 
     return timeSeries.sort(timeSeriesPointSort);
