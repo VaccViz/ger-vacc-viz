@@ -30,10 +30,10 @@ async function main() {
         remainingVaccTime: calculateTable(d),
         chartConfigurations: [
             getVaccChartConfig(timeSeries),
-            getDosesChartConfig(timeSeries, lastUpdate),
             getWeeklyChartConfig(weeklySeries),
+            getWeeklyChartByVaccineConfig(weeklySeries),
+            getDosesChartConfig(timeSeries, lastUpdate),
             getEstimationChartConfig(timeSeries),
-            getWeeklyChartByVaccineConfig(weeklySeries)
         ]
     });
 }
