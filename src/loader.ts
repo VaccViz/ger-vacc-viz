@@ -20,8 +20,8 @@ export async function fetchMetadata(): Promise<Metadata> {
     const res = await fetch(`${config.dataPath}/${config.metadataPath}`, {});
     const json = await res.json();
     return {
-        vaccinationsLastUpdated: moment(json.vaccinationsLastUpdated),
-        deliveryLastUpdated: moment(json.deliveryLastUpdated)
+        vaccinationsLastUpdated: moment(json.vaccinationsLastUpdated).utcOffset(120),
+        deliveryLastUpdated: moment(json.deliveryLastUpdated).utcOffset(120),
     }
 }
 
