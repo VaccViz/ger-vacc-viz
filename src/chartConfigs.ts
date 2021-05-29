@@ -117,3 +117,21 @@ export function getEstimationChartConfig(ts: TimeSeries): ChartProps {
         datasets
     };
 }
+
+
+export function getWeeklyChartByVaccineConfig(ws: WeekSummary[]) {
+    const datasets: ChartDataset[] = [
+        barChart("BioNTech/Pfizer", ws.map(t => t.comirnatyDosesDelired), ChartColors.Purple),
+        barChart("AstraZeneca", ws.map(t => t.astraDosesDelivered), ChartColors.Green),
+        barChart("Moderna", ws.map(t => t.modernaDosesDelivered), ChartColors.Blue),
+        barChart("Johnson & Johnson", ws.map(t => t.johnsonDosesDelivered), ChartColors.Red),
+    ];
+
+    return {
+        title: "Weekly Vaccine Deliveries",
+        labels: ws.map(w => moment(w.date).format("W")),
+        yTitle: "Number of Doses",
+        xTitle: "ISO Week",
+        datasets
+    };
+}

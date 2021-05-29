@@ -1,7 +1,7 @@
 import { fetchMetadata, loadDeliveryTimeSeries, loadVaccinationTimeSeries } from './loader';
 import { getCurrentData, calculateTable, combineTimeSeries, calculateAverages, calculateWeeklyData } from './calculation';
 import { render } from './render';
-import { getDosesChartConfig, getVaccChartConfig, getWeeklyChartConfig, getEstimationChartConfig } from './chartConfigs';
+import { getDosesChartConfig, getVaccChartConfig, getWeeklyChartConfig, getEstimationChartConfig, getWeeklyChartByVaccineConfig } from './chartConfigs';
 import moment from 'moment';
 import { getBuildInfo } from './const';
 import { log } from './util';
@@ -32,7 +32,8 @@ async function main() {
             getVaccChartConfig(timeSeries),
             getDosesChartConfig(timeSeries, lastUpdate),
             getWeeklyChartConfig(weeklySeries),
-            getEstimationChartConfig(timeSeries)
+            getEstimationChartConfig(timeSeries),
+            getWeeklyChartByVaccineConfig(weeklySeries)
         ]
     });
 }
