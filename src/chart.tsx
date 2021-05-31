@@ -39,6 +39,7 @@ Chart.register(
 
 export interface ChartProps {
     title: string,
+    subtitle?: string,
     remark?: string,
     labels: string[],
     yTitle: string,
@@ -122,6 +123,7 @@ export class ChartComponent extends Component<ChartProps> {
       return (
         <div>
             <h2>{this.props.title}</h2>
+            {this.props.subtitle ? (<p class="subtitle">{this.props.subtitle}</p>): ""}
             <canvas width="200" height="100"></canvas>
             {this.props.remark ? (<p class="remark"><i>Remark:</i> {this.props.remark}</p>): ""}
         </div>
