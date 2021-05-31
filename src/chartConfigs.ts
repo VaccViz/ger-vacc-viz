@@ -135,3 +135,24 @@ export function getWeeklyChartByVaccineConfig(ws: WeekSummary[]) {
         datasets
     };
 }
+
+export function getVaccRatioChartConfig(ts: TimeSeries): ChartProps {
+    ts = ts.filter(p => p.date.isAfter(moment("2021-02-01")))
+    const datasets: ChartDataset[] = [
+        cLineChart("Ratio of Administered Doses on that Day",
+            ts.map(t => t.peopleFirstDose / t.peopleSecondDose),
+            ChartColors.Purple),
+
+            cLineChart("Ratio on Weekly Average (Smoothed Ratio)",
+            ts.map(t => t.averageFirstDoses / t.averageSecondDoses),
+            ChartColors.Yellow),
+    ];
+
+    return {
+        title: "Ratio of First to Second Dose Vaccinations",
+        subtitle: "Number of people who received their first dose for every second dose administered.",
+        labels: tsLabels(ts),
+        yTitle: "Ratio",
+        datasets
+    };
+}
