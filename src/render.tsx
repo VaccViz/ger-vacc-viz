@@ -7,7 +7,7 @@ export function render(data: AppProps) {
 
     const App = (props: AppProps) => (
         <div>
-            <p><b>Last Update:</b> {props.lastUpdate.vaccinationsLastUpdated.format("llll")}</p>
+            <p><b>Last Update:</b> {props.lastUpdate.vaccinationsLastUpdated.format("llll")} ({props.lastUpdate.vaccinationsLastUpdated.fromNow()})</p>
             <h2>Remaining Vaccination Time Estimations</h2>
             <table>
                 <thead>
