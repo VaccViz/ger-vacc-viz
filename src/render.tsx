@@ -19,15 +19,15 @@ export function render(data: AppProps) {
                 </thead>
                 <tbody>
                     {props.remainingVaccTime.map((t) => (
-                        <tr id="impf-50">
-                            <td>{t.title}<br/><small>{t.subtitle}</small></td>
+                        <tr class={t.meaningful?"":"grey"}>
+                            <td>{t.title}{t.meaningful?"":"*"}<br/><small>{t.subtitle}</small></td>
                             <td>{Math.round(t.days)} days<br/><small>or {Math.floor(t.days / 30)} months and {Math.round(t.days - 30*Math.floor(t.days / 30))} days</small></td>
                             <td>{moment().add(t.days, 'days').format("ddd, ll")}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <p class="remark"><i>Remark:</i> The calculation of the listed dates are based on the assumption that the 7-day averages remain steady. It does not take other factors into account, such as age restrictions of vaccines.</p>
+            <p class="remark"><i>Remark:</i> The calculation of the listed dates are based on the assumption that the 7-day averages remain steady. It does not take other factors into account, such as age restrictions of vaccines. {(props.remainingVaccTime.every(t => !t.meaningful))?"":<small><br/>* This estimation is likely not meaningful at the moment due to the high number of second doses in comparison the number of first doses.</small>}</p>
 
             {props.chartConfigurations.map((c) => (
                 <ChartComponent {...c}></ChartComponent>
@@ -44,7 +44,8 @@ export function render(data: AppProps) {
 export interface RemainingVaccinationTime {
     title: string,
     subtitle: string,
-    days: number
+    days: number,
+    meaningful: boolean
 }
 
 export interface AppProps {

@@ -142,33 +142,41 @@ export function getCurrentData(ts: TimeSeries) {
 export function calculateTable(d: TimeSeriesDataPoint): RemainingVaccinationTime[] {
     const population = config.population;
 
-    return [
+    const secondDoseMeaningful = !(d.averageSecondDoses*0.9 > d.averageFirstDoses);
+
+    const result = [
         {
             title: "70% first dose administered",
             subtitle: "based on first dose 7-day average and remaining first doses",
-            days: (population  * 0.7  - d.totalPeopleFirstDose) / d.averageFirstDoses
+            days: (population  * 0.7  - d.totalPeopleFirstDose) / d.averageFirstDoses,
+            meaningful: true
         },
         {
             title: "100% first dose administered",
             subtitle: "based on the first dose 7-day average and remaining first doses",
-            days: (population - d.totalPeopleFirstDose) / d.averageFirstDoses
+            days: (population - d.totalPeopleFirstDose) / d.averageFirstDoses,
+            meaningful: secondDoseMeaningful
         },
         {
             title: "70% fully vaccinated",
             subtitle: "based on the second dose 7-day average and remaining second doses",
             // TODO: this unnecessary imprecisely because it does not take vaccines into account which requires only one dose
-            days: (population * 0.7 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses
+            days: (population * 0.7 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses,
+            meaningful: secondDoseMeaningful
         },
         {
             title: "Fully vaccinated",
             subtitle: "based on the 7-day average of total doses and remaining overall doses",
             // TODO: this unnecessary imprecisely because it does not take vaccines into account which requires only one dose
-            days: (population * 2 - d.totalVaccineDoses) / d.averageDoses
+            days: (population * 2 - d.totalVaccineDoses) / d.averageDoses,
+            meaningful: true
         },
         {
             title: "Fully vaccinated",
             subtitle: "based on the second dose 7-day average and remaining second doses",
-            days: (population - d.totalPeopleFullyVaccinated) / d.averageSecondDoses
+            days: (population - d.totalPeopleFullyVaccinated) / d.averageSecondDoses,
+            meaningful: secondDoseMeaningful
         },
     ];
+    return result;
 }

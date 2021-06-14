@@ -103,3 +103,7 @@ table > tbody > tr + tr > td {
     content: "";
     display: inline-block;
 }
+
+tr.grey {
+    color: lightgray;
+}
