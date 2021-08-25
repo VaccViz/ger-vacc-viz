@@ -13,7 +13,10 @@ async function fetchCSVText(name: DataSource): Promise<string> {
 
 async function fetchCSV(name: DataSource): Promise<parse.Parser> {
     const csv = await fetchCSVText(name);
-    return parse(csv, { delimiter: "\t"});
+    return parse(csv, {
+        delimiter: "\t",
+        columns: true
+    });
 }
 
 export async function fetchMetadata(): Promise<Metadata> {
@@ -29,17 +32,14 @@ export async function loadVaccinationTimeSeries(): Promise<VaccinationTimeSeries
     const parser = await fetchCSV(DataSource.VaccinationsTimeSeries);
     const timeSeries: VaccinationTimeSeriesDataPoint[] = [];
     for await (const record of parser) {
-        // Skip header:
-        if(record[0] == "date") continue;
-
         timeSeries.push({
-            date: moment(record[0]),
-            totalVaccineDoses: parseInt(record[1]),
-            peopleVaccinated: parseInt(record[2]),
-            peopleFirstDose: parseInt(record[3]),
-            peopleSecondDose: parseInt(record[4]),
-            totalPeopleFirstDose: parseInt(record[8]),
-            totalPeopleFullyVaccinated: parseInt(record[9])
+            date: moment(record["date"]),
+            totalVaccineDoses: parseInt(record["dosen_kumulativ"]),
+            peopleVaccinated: parseInt(record["dosen_differenz_zum_vortag"]),
+            peopleFirstDose: parseInt(record["dosen_erst_differenz_zum_vortag"]),
+            peopleSecondDose: parseInt(record["dosen_zweit_differenz_zum_vortag"]),
+            totalPeopleFirstDose: parseInt(record["personen_erst_kumulativ"]),
+            totalPeopleFullyVaccinated: parseInt(record["personen_voll_kumulativ"])
         });
     }
 
@@ -50,11 +50,9 @@ export async function loadDeliveryTimeSeries(): Promise<DeliveryTimeSeriesDataPo
     const parser = await fetchCSV(DataSource.DeliveriesTimeSeries);
     const timeSeries: DeliveryTimeSeriesDataPoint[] = [];
     for await (const record of parser) {
-        // Skip header:
-        if(record[0] == "date") continue;
-        const date = moment(record[0]);
-        const vaccineName = record[1];
-        const dosesDelivered = parseInt(record[3]);
+        const date = moment(record["date"]);
+        const vaccineName = record["impfstoff"];
+        const dosesDelivered = parseInt(record["dosen"]);
         let dp = timeSeries.find(p => p.date.isSame(date));
 
         if(!dp) {
