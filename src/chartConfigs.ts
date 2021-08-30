@@ -85,8 +85,8 @@ export function getDosesChartConfig(ts: TimeSeries, metadata: Metadata) {
 export function getWeeklyChartConfig(ws: WeekSummary[]) {
     const datasets: ChartDataset[] = [
         lineChart("People Vaccinated", ws.map(t => t.peopleVaccinated), ChartColors.Purple),
-        lineChart("First Dose", ws.map(t => t.peopleFirstDose), ChartColors.Green),
-        lineChart("Second Dose", ws.map(t => t.peopleSecondDose), ChartColors.Blue),
+        lineChart("First Dose", ws.map(t => t.peopleFirstDose), ChartColors.Blue),
+        lineChart("Second Dose", ws.map(t => t.peopleSecondDose), ChartColors.Green),
         barChart("Doses Delivered", ws.map(t => t.dosesDelivered), ChartColors.Red),
     ];
 
