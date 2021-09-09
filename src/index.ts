@@ -2,9 +2,8 @@ import { fetchMetadata, loadDeliveryTimeSeries, loadVaccinationTimeSeries } from
 import { getCurrentData, calculateTable, combineTimeSeries, calculateAverages, calculateWeeklyData } from './calculation';
 import { render } from './render';
 import { getDosesChartConfig, getVaccChartConfig, getWeeklyChartConfig, getEstimationChartConfig, getWeeklyChartByVaccineConfig, getVaccRatioChartConfig } from './chartConfigs';
-import moment from 'moment';
 import { getBuildInfo } from './const';
-import { log } from './util';
+import { runAsync } from './util';
 
 async function main() {
     console.log("Build Info:",getBuildInfo());
@@ -39,25 +38,4 @@ async function main() {
     });
 }
 
-function errorHandler(reason: any) {
-    log("main failed.", reason);
-    const content = document.getElementById("content");
-    if (content) {
-        const error = document.createElement("p");
-        error.className = "error";
-        error.innerText = "Sorry, an error occurred while loading data. Please come back later.";
-        content.innerHTML = '';
-        content.appendChild(error);
-    }
-}
-
-function success() {
-    const diff = moment().diff(startTime);
-    log(`main finished after ${diff} ms.`);
-}
-
-const startTime = moment();
-main()
-    .then(() => success())
-    .catch((reason) => errorHandler(reason));
-
+runAsync(main, "main");
