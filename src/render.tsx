@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Nano from 'nano-jsx';
 import { ChartComponent, ChartProps } from './chart';
-import { Metadata } from './model';
+import { Metadata, RemainingVaccinationTime } from './model';
 
 export function render(data: AppProps) {
 
@@ -39,13 +39,6 @@ export function render(data: AppProps) {
         App(data),
         document.getElementById("content")
     );
-}
-
-export interface RemainingVaccinationTime {
-    title: string,
-    subtitle: string,
-    days: number,
-    meaningful: boolean
 }
 
 export interface AppProps {

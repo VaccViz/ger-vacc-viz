@@ -151,3 +151,10 @@ export interface WeekSummary extends BaseTimeSeriesDataPoint {
       */
      comirnatyDosesDelired: number;
 }
+
+export interface RemainingVaccinationTime {
+    title: string,
+    subtitle: string,
+    days: number,
+    meaningful: boolean
+}

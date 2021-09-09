@@ -1,7 +1,6 @@
 import { average } from './util';
-import { RemainingVaccinationTime } from './render';
 import { config } from './const';
-import { BaseTimeSeriesDataPoint, CombinedTimeSeriesDataPoint, DeliveryTimeSeriesDataPoint, TimeSeries, TimeSeriesDataPoint, VaccinationTimeSeriesDataPoint, WeekSummary } from './model';
+import { BaseTimeSeriesDataPoint, CombinedTimeSeriesDataPoint, DeliveryTimeSeriesDataPoint, TimeSeries, TimeSeriesDataPoint, VaccinationTimeSeriesDataPoint, WeekSummary, RemainingVaccinationTime } from './model';
 
 /**
  * Returns the oldest Date from both points or undefined.
