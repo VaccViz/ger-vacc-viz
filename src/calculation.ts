@@ -1,6 +1,7 @@
-import { average } from './util';
+import { average, formatPercent } from './util';
 import { config } from './const';
-import { BaseTimeSeriesDataPoint, CombinedTimeSeriesDataPoint, DeliveryTimeSeriesDataPoint, TimeSeries, TimeSeriesDataPoint, VaccinationTimeSeriesDataPoint, WeekSummary, RemainingVaccinationTime } from './model';
+import { BaseTimeSeriesDataPoint, CombinedTimeSeriesDataPoint, DeliveryTimeSeriesDataPoint, TimeSeries, TimeSeriesDataPoint, VaccinationTimeSeriesDataPoint, WeekSummary, RemainingVaccinationTime, VaccProgress } from './model';
+import moment from 'moment';
 
 /**
  * Returns the oldest Date from both points or undefined.
@@ -186,5 +187,33 @@ export function calculateTable(d: TimeSeriesDataPoint): RemainingVaccinationTime
         },
         */
     ];
+    return result;
+}
+
+
+export function calculateProgressTable(d: TimeSeriesDataPoint, timeSeries: TimeSeries): VaccProgress[] {
+    const population = config.population;
+    const dateSixMonthsBefore = moment(d.date).subtract(6, "months");
+    const tsFromSixMonthsBefore = timeSeries.filter(t => t.date.isSame(dateSixMonthsBefore))[0];
+
+    const result = [
+        {
+            title: "People vaccinated at least once",
+            value: formatPercent(d.totalPeopleFirstDose / population)
+        },
+        {
+            title: "People fully vaccinated",
+            value: formatPercent(d.totalPeopleFullyVaccinated / population)
+        },
+        {
+            title: "People received the booster dose",
+            value: formatPercent(d.totalPeopleBoosterBose / population)
+        },
+        {
+            title: "People fully vaccinated 6 months before",
+            value: formatPercent(tsFromSixMonthsBefore.totalPeopleFullyVaccinated / population)
+        },
+    ];
+
     return result;
 }

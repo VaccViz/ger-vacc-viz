@@ -177,3 +177,8 @@ export interface RemainingVaccinationTime {
     days: number,
     meaningful: boolean
 }
+
+export interface VaccProgress {
+    title: string,
+    value: string
+}

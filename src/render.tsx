@@ -1,13 +1,30 @@
 import moment from 'moment';
 import Nano from 'nano-jsx';
 import { ChartComponent, ChartProps } from './chart';
-import { Metadata, RemainingVaccinationTime } from './model';
+import { Metadata, RemainingVaccinationTime, VaccProgress } from './model';
 
 export function render(data: AppProps) {
 
     const App = (props: AppProps) => (
         <div>
             <p><b>Last Update:</b> {props.lastUpdate.vaccinationsLastUpdated.format("llll")} ({props.lastUpdate.vaccinationsLastUpdated.fromNow()})</p>
+            <h2>Vaccination Progress</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Proportion of the population</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.vaccProgress.map((t) => (
+                        <tr>
+                            <td>{t.title}</td>
+                            <td>{t.value}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
             <h2>Remaining Vaccination Time Estimations</h2>
             <table>
                 <thead>
@@ -43,6 +60,7 @@ export function render(data: AppProps) {
 
 export interface AppProps {
     lastUpdate: Metadata,
+    vaccProgress: VaccProgress[],
     remainingVaccTime: RemainingVaccinationTime[],
     chartConfigurations: ChartProps[],
 }

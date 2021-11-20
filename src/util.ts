@@ -6,6 +6,10 @@ export function average(arr: number[]) {
     return arr.reduce((p, c) => p + c, 0) / arr.length;
 }
 
+export function formatPercent(x: number) {
+    return (x * 100).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 }) + " %";
+}
+
 export function timeSeriesPointSort(a: BaseTimeSeriesDataPoint, b: BaseTimeSeriesDataPoint) {
     return a.date.diff(b.date);
 }
