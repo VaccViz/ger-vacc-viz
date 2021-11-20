@@ -25,8 +25,12 @@ module.exports = (env) => {
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],
+            fallback: {
+                "stream": require.resolve("stream-browserify"),
+                "buffer": require.resolve("buffer/")
+            },
             alias: {
-                'csv-parse': path.resolve(__dirname, 'node_modules/csv-parse/lib/browser/index.js'),
+                "process": "process/browser"
             },
         },
         output: {
@@ -61,6 +65,14 @@ module.exports = (env) => {
                     branch: gitRevisionPlugin.branch(),
                     lastCommit: gitRevisionPlugin.lastcommitdatetime(),
                 }),
+            }),
+            // Work around for Buffer is undefined:
+            // https://github.com/webpack/changelog-v5/issues/10
+            new webpack.ProvidePlugin({
+                Buffer: ['buffer', 'Buffer'],
+            }),
+            new webpack.ProvidePlugin({
+                process: 'process/browser',
             }),
         ],
 

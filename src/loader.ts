@@ -1,5 +1,5 @@
 
-import parse from 'csv-parse';
+import { parse, Parser } from 'csv-parse';
 import moment from 'moment';
 import { config, DataSource } from './const';
 import { DeliveryTimeSeriesDataPoint, Metadata, VaccinationTimeSeriesDataPoint } from './model';
@@ -11,7 +11,7 @@ async function fetchCSVText(name: DataSource): Promise<string> {
     return body;
 }
 
-async function fetchCSV(name: DataSource): Promise<parse.Parser> {
+async function fetchCSV(name: DataSource): Promise<Parser> {
     const csv = await fetchCSVText(name);
     return parse(csv, {
         delimiter: "\t",
