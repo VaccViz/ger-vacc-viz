@@ -55,6 +55,7 @@ export function getVaccChartConfig(ts: TimeSeries): ChartProps {
         cLineChart("7-day Average Vaccinations", ts.map(t => t.averageDoses), ChartColors.Purple),
         cLineChart("7-day Average First Dose", ts.map(t => t.averageFirstDoses), ChartColors.Blue),
         cLineChart("7-day Average Second Dose", ts.map(t => t.averageSecondDoses), ChartColors.Green),
+        cLineChart("7-day Average Booster Dose", ts.map(t => t.averageBoosterDoses), ChartColors.Red),
         barChart("Daily Vaccinations", ts.map(t => t.peopleVaccinated), ChartColors.Yellow),
     ];
 
@@ -87,7 +88,8 @@ export function getWeeklyChartConfig(ws: WeekSummary[]) {
         lineChart("People Vaccinated", ws.map(t => t.peopleVaccinated), ChartColors.Purple),
         lineChart("First Dose", ws.map(t => t.peopleFirstDose), ChartColors.Blue),
         lineChart("Second Dose", ws.map(t => t.peopleSecondDose), ChartColors.Green),
-        barChart("Doses Delivered", ws.map(t => t.dosesDelivered), ChartColors.Red),
+        lineChart("Booster Dose", ws.map(t => t.peopleBoosterDose), ChartColors.Red),
+        barChart("Doses Delivered", ws.map(t => t.dosesDelivered), ChartColors.Yellow),
     ];
 
     return {

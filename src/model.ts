@@ -32,6 +32,11 @@ export interface VaccinationTimeSeriesDataPoint extends BaseTimeSeriesDataPoint 
       */
      totalPeopleFullyVaccinated: number;
 
+    /**
+     * Total number of people who received a third aka booster doses til this day.
+     */
+     totalPeopleBoosterBose: number;
+
      /**
       * Number of people who received a vaccine dose on that day.
       */
@@ -47,6 +52,10 @@ export interface VaccinationTimeSeriesDataPoint extends BaseTimeSeriesDataPoint 
       */
      peopleSecondDose: number;
 
+     /**
+      * Number of people who received their third vaccine dose aka booster on that day.
+      */
+     peopleBoosterDose: number;
 }
 
 export interface DeliveryTimeSeriesDataPoint extends BaseTimeSeriesDataPoint {
@@ -103,6 +112,11 @@ export interface TimeSeriesDataPoint extends CombinedTimeSeriesDataPoint {
      * 7-day average of second doses administered per day.
      */
     averageSecondDoses: number;
+
+    /**
+     * 7-day average of third / booster doses administered per day.
+     */
+    averageBoosterDoses: number;
 }
 
 export interface WeekSummary extends BaseTimeSeriesDataPoint {
@@ -122,9 +136,14 @@ export interface WeekSummary extends BaseTimeSeriesDataPoint {
     peopleFirstDose: number;
 
     /**
-     * Number of people who received their second vaccine dose  in that week.
+     * Number of people who received their second vaccine dose in that week.
      */
     peopleSecondDose: number;
+
+    /**
+     * Number of people who received their third vaccine / booster dose in that week.
+     */
+     peopleBoosterDose: number;
 
     /**
      * Total number of doses delivered til that week.

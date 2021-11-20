@@ -41,9 +41,11 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
             peopleFirstDose: 0,
             peopleSecondDose: 0,
             peopleVaccinated: 0,
+            peopleBoosterDose: 0,
             totalVaccineDoses: 0,
             totalPeopleFirstDose: 0,
             totalPeopleFullyVaccinated: 0,
+            totalPeopleBoosterBose: 0,
             modernaDosesDelivered: 0,
             astraDosesDelivered: 0,
             comirnatyDosesDelivered: 0,
@@ -55,10 +57,12 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
         if(currentVacc?.date.valueOf() === date.valueOf()) {
             data.peopleFirstDose = currentVacc.peopleFirstDose,
             data.peopleSecondDose = currentVacc.peopleSecondDose,
+            data.peopleBoosterDose = currentVacc.peopleBoosterDose,
             data.totalVaccineDoses = currentVacc.totalVaccineDoses,
             data.peopleVaccinated = currentVacc.peopleVaccinated;
             data.totalPeopleFirstDose = currentVacc.totalPeopleFirstDose,
             data.totalPeopleFullyVaccinated = currentVacc.totalPeopleFullyVaccinated,
+            data.totalPeopleBoosterBose = currentVacc.totalPeopleBoosterBose,
             currentVacc = null;
         }
         if(currentDelivery?.date.valueOf() === date.valueOf()) {
@@ -88,6 +92,7 @@ export function calculateAverages(input: CombinedTimeSeriesDataPoint[]): TimeSer
             averageDoses: calcAverageField(input, key, t => t.peopleVaccinated),
             averageFirstDoses: calcAverageField(input, key, t => t.peopleFirstDose),
             averageSecondDoses: calcAverageField(input, key, t => t.peopleSecondDose),
+            averageBoosterDoses: calcAverageField(input, key, t => t.peopleBoosterDose),
             dosesAvailable: totalDosesDelivered - value.totalVaccineDoses
         });
     }
@@ -111,6 +116,7 @@ export function calculateWeeklyData(dailyTimeSeries: TimeSeries): WeekSummary[] 
                 peopleFirstDose: 0,
                 peopleSecondDose: 0,
                 peopleVaccinated: 0,
+                peopleBoosterDose: 0,
                 dosesDelivered: 0,
                 astraDosesDelivered: 0,
                 comirnatyDosesDelired: 0,
@@ -121,6 +127,7 @@ export function calculateWeeklyData(dailyTimeSeries: TimeSeries): WeekSummary[] 
         }
         currentWeek.peopleFirstDose += day.peopleFirstDose;
         currentWeek.peopleSecondDose += day.peopleSecondDose;
+        currentWeek.peopleBoosterDose += day.peopleBoosterDose;
         currentWeek.dosesDelivered += day.dosesDelivered;
         currentWeek.peopleVaccinated += day.peopleVaccinated;
         currentWeek.astraDosesDelivered += day.astraDosesDelivered;
