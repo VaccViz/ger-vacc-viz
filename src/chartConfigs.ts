@@ -101,6 +101,40 @@ export function getWeeklyChartConfig(ws: WeekSummary[]) {
     };
 }
 
+export function getBoosterChartConfig(ts: TimeSeries) {
+    const boosterStart = moment(config.boosterStart);
+    const oldPeriodStart = moment(boosterStart).subtract(6, 'months');
+    const oldPeriodEnd = moment(ts.slice(-1)[0].date).subtract(6, 'months');
+    const population = config.population;
+
+    const tsAfterBooster = ts.filter(t => t.date.isSameOrAfter(boosterStart));
+    const tsOldPeriod = ts.filter(t => t.date.isSameOrAfter(oldPeriodStart) && t.date.isSameOrBefore(oldPeriodEnd));
+    const tsMerged = tsAfterBooster.map((t, i) => tsOldPeriod[i].totalPeopleFullyVaccinated - t.totalPeopleBoosterDose );
+
+    const datasets: ChartDataset[] = [
+        cLineChart(
+            "People fully vaccinated 6 months before",
+            tsOldPeriod
+                .map(t => t.totalPeopleFullyVaccinated/population*100),
+            ChartColors.Blue),
+        cLineChart(
+            "People who did received their booster dose",
+            tsAfterBooster.map(t => t.totalPeopleBoosterDose/population*100),
+            ChartColors.Green),
+        cLineChart(
+            "People who did not received their booster dose after 6 months",
+            tsMerged.map(t => t/population*100),
+            ChartColors.Red),
+    ];
+
+    return {
+        title: "Booster Progress",
+        labels: tsLabels(tsAfterBooster),
+        yTitle: "Proportion of the population (%)",
+        datasets
+    };
+}
+
 export function getEstimationChartConfig(ts: TimeSeries): ChartProps {
     const population = config.population;
     ts = ts.filter(p => p.date.isAfter(moment("2021-05-14"))) // was 05-01

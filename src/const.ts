@@ -2,7 +2,8 @@
 export const config = {
     dataPath: "https://impfdashboard.de/static/data",
     metadataPath: "metadata.json",
-    population: 83166711
+    population: 83166711,
+    boosterStart: "2021-09-01"
 };
 
 export enum DataSource {

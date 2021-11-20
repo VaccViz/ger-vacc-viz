@@ -1,7 +1,7 @@
 import { fetchMetadata, loadDeliveryTimeSeries, loadVaccinationTimeSeries } from './loader';
 import { getCurrentData, calculateTable, combineTimeSeries, calculateAverages, calculateWeeklyData, calculateProgressTable } from './calculation';
 import { render } from './render';
-import { getDosesChartConfig, getVaccChartConfig, getWeeklyChartConfig, getEstimationChartConfig, getWeeklyChartByVaccineConfig, getVaccRatioChartConfig } from './chartConfigs';
+import { getDosesChartConfig, getVaccChartConfig, getWeeklyChartConfig, getEstimationChartConfig, getWeeklyChartByVaccineConfig, getVaccRatioChartConfig, getBoosterChartConfig } from './chartConfigs';
 import { getBuildInfo } from './const';
 import { runAsync } from './util';
 
@@ -31,6 +31,7 @@ async function main() {
         chartConfigurations: [
             getVaccChartConfig(timeSeries),
             getWeeklyChartConfig(weeklySeries),
+            getBoosterChartConfig(timeSeries),
             getWeeklyChartByVaccineConfig(weeklySeries),
             getDosesChartConfig(timeSeries, lastUpdate),
             getEstimationChartConfig(timeSeries),
