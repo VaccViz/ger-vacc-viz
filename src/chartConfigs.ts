@@ -107,9 +107,9 @@ export function getEstimationChartConfig(ts: TimeSeries): ChartProps {
 
     // TODO: Import from calculation?
     const datasets: ChartDataset[] = [
-        cLineChart("70% first dose administered", ts.map(d => (population  * 0.7  - d.totalPeopleFirstDose) / d.averageFirstDoses), ChartColors.Purple),
+        cLineChart("80% first dose administered", ts.map(d => (population  * 0.8  - d.totalPeopleFirstDose) / d.averageFirstDoses), ChartColors.Purple),
         cLineChart("70% fully vaccinated", ts.map(d => (population * 0.7 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses), ChartColors.Blue),
-        cLineChart("Fully vaccinated", ts.map(d => (population * 2 - d.totalVaccineDoses) / d.averageDoses), ChartColors.Green),
+        cLineChart("80% fully vaccinated", ts.map(d => (population * 0.8 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses), ChartColors.Green),
     ];
 
     return {
