@@ -122,7 +122,7 @@ export function getBoosterChartConfig(ts: TimeSeries) {
             tsAfterBooster.map(t => t.totalPeopleBoosterDose/population*100),
             ChartColors.Green),
         cLineChart(
-            "People who did not received their booster dose after 6 months",
+            "People who did not received their booster dose after 6 months, yet",
             tsMerged.map(t => t/population*100),
             ChartColors.Red),
     ];
