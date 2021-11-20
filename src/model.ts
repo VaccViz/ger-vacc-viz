@@ -35,7 +35,7 @@ export interface VaccinationTimeSeriesDataPoint extends BaseTimeSeriesDataPoint 
     /**
      * Total number of people who received a third aka booster doses til this day.
      */
-     totalPeopleBoosterBose: number;
+     totalPeopleBoosterDose: number;
 
      /**
       * Number of people who received a vaccine dose on that day.

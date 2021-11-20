@@ -46,7 +46,7 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
             totalVaccineDoses: 0,
             totalPeopleFirstDose: 0,
             totalPeopleFullyVaccinated: 0,
-            totalPeopleBoosterBose: 0,
+            totalPeopleBoosterDose: 0,
             modernaDosesDelivered: 0,
             astraDosesDelivered: 0,
             comirnatyDosesDelivered: 0,
@@ -63,7 +63,7 @@ export function combineTimeSeries(vaccTS: VaccinationTimeSeriesDataPoint[], deli
             data.peopleVaccinated = currentVacc.peopleVaccinated;
             data.totalPeopleFirstDose = currentVacc.totalPeopleFirstDose,
             data.totalPeopleFullyVaccinated = currentVacc.totalPeopleFullyVaccinated,
-            data.totalPeopleBoosterBose = currentVacc.totalPeopleBoosterBose,
+            data.totalPeopleBoosterDose = currentVacc.totalPeopleBoosterDose,
             currentVacc = null;
         }
         if(currentDelivery?.date.valueOf() === date.valueOf()) {
@@ -207,7 +207,7 @@ export function calculateProgressTable(d: TimeSeriesDataPoint, timeSeries: TimeS
         },
         {
             title: "People received the booster dose",
-            value: formatPercent(d.totalPeopleBoosterBose / population)
+            value: formatPercent(d.totalPeopleBoosterDose / population)
         },
         {
             title: "People fully vaccinated 6 months before",

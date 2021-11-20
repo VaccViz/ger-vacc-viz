@@ -41,7 +41,7 @@ export async function loadVaccinationTimeSeries(): Promise<VaccinationTimeSeries
             peopleBoosterDose: parseInt(record["dosen_dritt_differenz_zum_vortag"]),
             totalPeopleFirstDose: parseInt(record["personen_erst_kumulativ"]),
             totalPeopleFullyVaccinated: parseInt(record["personen_voll_kumulativ"]),
-            totalPeopleBoosterBose: parseInt(record["dosen_dritt_kumulativ"]),
+            totalPeopleBoosterDose: parseInt(record["dosen_dritt_kumulativ"]),
         });
     }
 
