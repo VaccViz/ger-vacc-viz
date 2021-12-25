@@ -158,27 +158,30 @@ export function calculateTable(d: TimeSeriesDataPoint): RemainingVaccinationTime
             days: (population  * 0.8  - d.totalPeopleFirstDose) / d.averageFirstDoses,
             meaningful: true
         },
-        /* Likely meaningless:
+        /*
+        // Likely meaningless:
         {
             title: "100% first dose administered",
             subtitle: "based on the first dose 7-day average and remaining first doses",
             days: (population - d.totalPeopleFirstDose) / d.averageFirstDoses,
             meaningful: secondDoseMeaningful
         },
-        */
+        // Goal reached:
         {
             title: "70% fully vaccinated",
             subtitle: "based on the second dose 7-day average and remaining second doses",
             days: (population * 0.7 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses,
             meaningful: secondDoseMeaningful
         },
+        */
         {
             title: "80% fully vaccinated",
             subtitle: "based on the second dose 7-day average and remaining second doses",
             days: (population * 0.8 - d.totalPeopleFullyVaccinated) / d.averageSecondDoses,
             meaningful: secondDoseMeaningful
         },
-        /* Likely meaningless:
+        /*
+        // Likely meaningless:
         {
             title: "Fully vaccinated",
             subtitle: "based on the second dose 7-day average and remaining second doses",
