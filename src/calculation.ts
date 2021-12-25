@@ -197,7 +197,9 @@ export function calculateTable(d: TimeSeriesDataPoint): RemainingVaccinationTime
 export function calculateProgressTable(d: TimeSeriesDataPoint, timeSeries: TimeSeries): VaccProgress[] {
     const population = config.population;
     const dateSixMonthsBefore = moment(d.date).subtract(6, "months");
+    const dateFiveMonthsBefore = moment(d.date).subtract(5, "months");
     const tsFromSixMonthsBefore = timeSeries.filter(t => t.date.isSame(dateSixMonthsBefore))[0];
+    const tsFromFiveMonthsBefore = timeSeries.filter(t => t.date.isSame(dateFiveMonthsBefore))[0];
 
     const result = [
         {
@@ -215,6 +217,10 @@ export function calculateProgressTable(d: TimeSeriesDataPoint, timeSeries: TimeS
         {
             title: "People fully vaccinated 6 months before",
             value: formatPercent(tsFromSixMonthsBefore.totalPeopleFullyVaccinated / population)
+        },
+        {
+            title: "People fully vaccinated 5 months before",
+            value: formatPercent(tsFromFiveMonthsBefore.totalPeopleFullyVaccinated / population)
         },
     ];
 
